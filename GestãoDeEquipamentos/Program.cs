@@ -5,7 +5,7 @@ namespace GestãoDeEquipamentos
     internal class Program
     {
 
-        //      -------------------- Equipametos ------------------------------
+        //      --------------------| Equipametos |------------------------------
 
         static char teste, opcao;
         static int QuantidadeDeProdutos = 0, indice, posicao1 = 0;
@@ -16,14 +16,13 @@ namespace GestãoDeEquipamentos
         static string[] DatadeFabricacaoDoProduto = new string[1000];
         static string[] FabricanteDoProduto = new string[1000];
 
-        //      -------------------- Chamados ---------------------------------
-        
+        //      --------------------| Chamados |---------------------------------
         static int posicao2 = 0;
         static int QuantidadeDeChamadas = 0;
 
         static string[] NomeDaChamada = new string[1000];
-        static double[] DescricaoDaChamada = new double[1000];
-        static string[] NomeDoEquipamento = new string[1000];
+        static string[] DescricaoDaChamada = new string[1000];
+        static int[] NomeDoEquipamento = new int[1000];
         static string[] DataDeAberturaDoChamado = new string[1000];
 
         static void Main(string[] args)
@@ -38,48 +37,25 @@ namespace GestãoDeEquipamentos
                 Console.WriteLine("Digite 1 para acessar o menu dos Equipamentos: ");
                 Console.WriteLine("Digite 2 para acessar o menu das Chamadas: ");
                 Console.WriteLine("Digite 3 para SAIR: ");
+                Console.Write("Resposta:");
                 opcao = Convert.ToChar(Console.ReadLine());
 
                 switch (opcao)
                 {
                     case '1':
                         MenuEquipamentos();
+                        opcao = 'x';
                         break;
                     case '2':
                         MenuChamada();
+                        opcao = 'x';
                         break;
                 }
 
             } while (opcao != '3');
 
-            do
-            {
-                Console.Write("Digite o indice do item q deseja alterar:  ");
-                indice = Convert.ToInt32(Console.ReadLine());
+            //      ---------------------------| Final do Main |--------------------------------------
 
-                Console.Write("Digite o novo nome do produto:");
-                NomeDoProduto[indice] = null;
-                Console.Write("Digite o novo preço do produto:");
-                PrecoDoProduto[indice] = 0;
-                Console.Write("Digite o novo número de série do produto:");
-                NumeroDeSerieDoProduto[indice] = null;
-                Console.Write("Digite a nova data de fabricação do produto:");
-                DatadeFabricacaoDoProduto[indice] = null;
-                Console.Write("Digite o novo fabricante do produto:");
-                FabricanteDoProduto[indice] = null;
-
-                do
-                {
-                    Console.WriteLine("Deseja excluir mais algum item ?");
-                    teste = Convert.ToChar(Console.ReadLine().ToUpper());
-                    if (teste != 'S' && teste != 'N')
-                    {
-                        Console.WriteLine("Digite APenas S ou N");
-                    }
-                } while (teste != 'S' && teste != 'N');
-
-            } while (teste == 'S');
-            //      ------------------------------------------------------------------------------
         }
 
         private static void MenuChamada()
@@ -91,9 +67,9 @@ namespace GestãoDeEquipamentos
                 Console.WriteLine();
                 Console.WriteLine("Digite 1 para inserir Chamados: ");
                 Console.WriteLine("Digite 2 para Visualizar Chamados: ");
-                Console.WriteLine("Digite 3 para editar Equipamentos: ");
+                Console.WriteLine("Digite 3 para editar Chamado: ");
                 Console.WriteLine("Digite 4 para excluir Equipamentos: ");
-                Console.WriteLine("Digite 5 para fechar o sistema: ");
+                Console.WriteLine("Digite 5 para voltar: ");
                 opcao = Convert.ToChar(Console.ReadLine());
                 switch (opcao)
                 {
@@ -104,10 +80,10 @@ namespace GestãoDeEquipamentos
                         VisualizarChamados();
                         break;
                     case '3':
-                        EditarEquipamento();
+                        EditarChamada();
                         break;
                     case '4':
-                        //ExcluirEquipamento()
+                        ExcluirChamada();
                         break;
                     case '5':
                         teste = 'n';
@@ -127,7 +103,7 @@ namespace GestãoDeEquipamentos
                 Console.WriteLine("Digite 2 para Visualizar Equipamentos: ");
                 Console.WriteLine("Digite 3 para editar Equipamentos: ");
                 Console.WriteLine("Digite 4 para excluir Equipamentos: ");
-                Console.WriteLine("Digite 5 para fechar o sistema: ");
+                Console.WriteLine("Digite 5 para Voltar: ");
                 opcao = Convert.ToChar(Console.ReadLine());
                 switch (opcao)
                 {
@@ -138,7 +114,7 @@ namespace GestãoDeEquipamentos
                         VisualizarEquipamentos();
                         break;
                     case '3':
-                        EditarEquipamento();
+                        EditarEquipamentos();
                         break;
                     case '4':
                         ExcluirEquipamento();
@@ -150,58 +126,42 @@ namespace GestãoDeEquipamentos
             } while (teste == 's');
         }
 
-        private static void VisualizarChamados()
-        {
-            for (int j = 0; j < QuantidadeDeProdutos; j++)
-            {
-                if (NomeDaChamada[j] != null)
-                {
-                    Console.WriteLine("Indice: " + j + " | Título: " + NomeDaChamada[j] + " | Descrição: " + DescricaoDaChamada[j] + " | Data de abertura: " + DataDeAberturaDoChamado[j] + "| Equipamento: " + NomeDoProduto[j] + " |");
-                }
-            }
-        }
-
-        private static void InsetirChamado()
-        {
-            do
-            {
-                Console.Write("Digite o nome da chamada:");
-                NomeDaChamada[posicao2] = Console.ReadLine();
-                Console.Write("Digite a descrição da chamada:");
-                DescricaoDaChamada[posicao2] = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Digite o indice do equipamento oo qual a chamada se refere:");
-                NomeDoEquipamento[posicao2] = Console.ReadLine();
-                Console.Write("Digite a data de abertura da chamada:");
-                DataDeAberturaDoChamado[posicao2] = Console.ReadLine();
-
-                do
-                {
-                    Console.WriteLine("Deseja inserir mais um valor (S || N) ?");
-                    teste = Convert.ToChar(Console.ReadLine().ToUpper());
-                    if (teste != 'S' && teste != 'N')
-                    {
-                        Console.WriteLine("Digite APenas S ou N");
-                    }
-                } while (teste != 'S' && teste != 'N');
-                QuantidadeDeChamadas = QuantidadeDeChamadas + 1;
-                posicao1 = posicao1 + 1;
-            } while (teste == 'S');
-        }
-
         private static void InserirEquipamento()
         {
+
             do
             {
-                Console.Write("Digite o nome do produto:");
-                NomeDoProduto[posicao2] = Console.ReadLine();
-                Console.Write("Digite o preço do produto:");
-                PrecoDoProduto[posicao2] = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Digite o número de série do produto:");
-                NumeroDeSerieDoProduto[posicao2] = Console.ReadLine();
-                Console.Write("Digite a data de fabricação do produto:");
-                DatadeFabricacaoDoProduto[posicao2] = Console.ReadLine();
-                Console.Write("Digite o fabricante do produto:");
-                FabricanteDoProduto[posicao2] = Console.ReadLine();
+                int tamanho;
+                do
+                {
+                    Console.Write("Digite o nome do produto:");
+                    NomeDoProduto[posicao1] = Console.ReadLine();
+                    tamanho = NomeDoProduto.Length;
+                } while (tamanho < 6);
+                do
+                {
+                    Console.Write("Digite o preço do produto:");
+                    PrecoDoProduto[posicao1] = Convert.ToDouble(Console.ReadLine());
+                } while (PrecoDoProduto[posicao1] < 0);
+
+                do
+                {
+                    Console.Write("Digite o número de série do produto:");
+                    NumeroDeSerieDoProduto[posicao1] = Console.ReadLine();
+
+                } while (NumeroDeSerieDoProduto[posicao1] != null);
+
+                do
+                {
+                    Console.Write("Digite a data de fabricação do produto:");
+                    DatadeFabricacaoDoProduto[posicao1] = Console.ReadLine();
+                }while(DatadeFabricacaoDoProduto != null);
+                do
+                {
+                    Console.Write("Digite o fabricante do produto:");
+                    FabricanteDoProduto[posicao1] = Console.ReadLine();
+                } while (FabricanteDoProduto[posicao1] != null);
+                
                 posicao1 = posicao1 + 1;
 
                 do
@@ -213,39 +173,44 @@ namespace GestãoDeEquipamentos
                         Console.WriteLine("Digite APenas S ou N");
                     }
                 } while (teste != 'S' && teste != 'N');
+
                 QuantidadeDeProdutos = QuantidadeDeProdutos + 1;
 
             } while (teste == 'S');
         }
 
-        private static void EditarEquipamento()
+        private static void EditarEquipamentos()
         {
-            while (teste == 'S')
+            do
             {
-                Console.Write("Digite o indice do item q deseja alterar:  ");
+                Console.Write("Digite o indice do chamado que deseja editar:");
                 indice = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Digite o novo nome do produto:");
+                Console.Write("Digite o nome do produto:");
                 NomeDoProduto[indice] = Console.ReadLine();
-                Console.Write("Digite o novo preço do produto:");
+
+                Console.Write("Digite o preço do produto:");
                 PrecoDoProduto[indice] = Convert.ToDouble(Console.ReadLine());
-                Console.Write("Digite o novo número de série do produto:");
+
+                Console.Write("Digite o número de série do produto:");
                 NumeroDeSerieDoProduto[indice] = Console.ReadLine();
-                Console.Write("Digite a nova data de fabricação do produto:");
+
+                Console.Write("Digite a data de fabricação do produto:");
                 DatadeFabricacaoDoProduto[indice] = Console.ReadLine();
-                Console.Write("Digite o novo fabricante do produto:");
+
+                Console.Write("Digite o fabricante do produto:");
                 FabricanteDoProduto[indice] = Console.ReadLine();
 
                 do
                 {
-                    Console.WriteLine("Deseja editar mais algum item ?");
+                    Console.WriteLine("Deseja inserir mais um valor (S || N) ?");
                     teste = Convert.ToChar(Console.ReadLine().ToUpper());
                     if (teste != 'S' && teste != 'N')
                     {
                         Console.WriteLine("Digite APenas S ou N");
                     }
                 } while (teste != 'S' && teste != 'N');
-            }
+            } while (teste == 'S');
         }
 
         private static void ExcluirEquipamento()
@@ -255,15 +220,10 @@ namespace GestãoDeEquipamentos
                 Console.Write("Digite o indice do item q deseja alterar:  ");
                 indice = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Digite o novo nome do produto:");
                 NomeDoProduto[indice] = null;
-                Console.Write("Digite o novo preço do produto:");
                 PrecoDoProduto[indice] = 0;
-                Console.Write("Digite o novo número de série do produto:");
                 NumeroDeSerieDoProduto[indice] = null;
-                Console.Write("Digite a nova data de fabricação do produto:");
                 DatadeFabricacaoDoProduto[indice] = null;
-                Console.Write("Digite o novo fabricante do produto:");
                 FabricanteDoProduto[indice] = null;
 
                 do
@@ -281,10 +241,121 @@ namespace GestãoDeEquipamentos
 
         private static void VisualizarEquipamentos()
         {
-            for (int j = 0; j < QuantidadeDeProdutos; j++)
+            for (int j = 0; j <= QuantidadeDeProdutos; j++)
             {
-                Console.WriteLine("Indice: " + j + " | Nome: " + NomeDoProduto[j] + " | Número de Série:" + NumeroDeSerieDoProduto[j] + " | Fabricante: " + FabricanteDoProduto[j] + "|");
+                if (NomeDaChamada != null)
+                {
+                    Console.WriteLine("Indice: " + j + " | Nome: " + NomeDoProduto[j] + " | Número de Série:" + NumeroDeSerieDoProduto[j] + " | Fabricante: " + FabricanteDoProduto[j] + "|");
+                    Console.ReadLine();
+                }
             }
+        }
+
+        private static void VisualizarChamados()
+        {
+
+            for (int j = 0; j < QuantidadeDeChamadas; j++)
+            {
+                DateTime dataAbertura = Convert.ToDateTime(DataDeAberturaDoChamado[j]);
+                TimeSpan diferenca = DateTime.Today - dataAbertura;
+                double dias = diferenca.TotalDays;
+
+                if (NomeDaChamada[j] != null)
+                {
+                    Console.WriteLine("Indice: " + j + " | Título: " + NomeDaChamada[j] + " | Descrição: " + DescricaoDaChamada[j] + " | Data de abertura: " + DataDeAberturaDoChamado[j] + "| Dias em aberto: " + dias + " |");
+                    Console.ReadLine();
+                }
+            }
+        }
+
+        private static void InsetirChamado()
+        {
+            do
+            {
+                do
+                {
+                    Console.Write("Digite o nome da chamada:");
+                    NomeDaChamada[posicao1] = Console.ReadLine();
+                } while (NomeDaChamada[posicao1] != null);
+
+                Console.Write("Digite a descrição da chamada:");
+                DescricaoDaChamada[posicao1] = Console.ReadLine();
+
+                do
+                {
+                    Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
+                    NomeDoEquipamento[posicao1] = Convert.ToInt32(Console.ReadLine());
+                } while (true);
+                Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
+                NomeDoEquipamento[posicao1] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite a data de abertura da chamada:");
+                DataDeAberturaDoChamado[posicao1] = Console.ReadLine();
+                QuantidadeDeChamadas = QuantidadeDeChamadas + 1;
+
+                do
+                {
+                    Console.WriteLine("Deseja inserir mais um valor (S || N) ?");
+                    teste = Convert.ToChar(Console.ReadLine().ToUpper());
+                    if (teste != 'S' && teste != 'N')
+                    {
+                        Console.WriteLine("Digite APenas S ou N");
+                    }
+                } while (teste != 'S' && teste != 'N');
+                posicao1 = posicao1 + 1;
+            } while (teste == 'S');
+        }
+
+        private static void EditarChamada()
+        {
+            do
+            {
+                Console.Write("Digite o indice do chamado que deseja editar:");
+                indice = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("Digite o nome da chamada:");
+                NomeDaChamada[indice] = Console.ReadLine();
+                Console.Write("Digite a descrição da chamada:");
+                DescricaoDaChamada[indice] = Console.ReadLine();
+                Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
+                NomeDoEquipamento[indice] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite a data de abertura da chamada:");
+                DataDeAberturaDoChamado[indice] = Console.ReadLine();
+
+                do
+                {
+                    Console.WriteLine("Deseja inserir mais um valor (S || N) ?");
+                    teste = Convert.ToChar(Console.ReadLine().ToUpper());
+                    if (teste != 'S' && teste != 'N')
+                    {
+                        Console.WriteLine("Digite APenas S ou N");
+                    }
+                } while (teste != 'S' && teste != 'N');
+            } while (teste == 'S');
+        }
+
+        private static void ExcluirChamada()
+        {
+            do
+            {
+                Console.Write("Digite o indice do item q deseja alterar:  ");
+                indice = Convert.ToInt32(Console.ReadLine());
+
+                NomeDaChamada[posicao1] = null;
+                DescricaoDaChamada[posicao1] = null;
+                NomeDoEquipamento[posicao1] = 0;
+                DataDeAberturaDoChamado[posicao1] = null;
+
+                do
+                {
+                    Console.WriteLine("Deseja excluir mais algum item ?");
+                    teste = Convert.ToChar(Console.ReadLine().ToUpper());
+                    if (teste != 'S' && teste != 'N')
+                    {
+                        Console.WriteLine("Digite APenas S ou N");
+                    }
+                } while (teste != 'S' && teste != 'N');
+
+            } while (teste == 'S');
         }
 
     }
