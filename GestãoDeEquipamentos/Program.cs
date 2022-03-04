@@ -247,8 +247,12 @@ namespace GestãoDeEquipamentos
                     }
                 }
 
-                Console.Write("Digite o indice do item q deseja EXCLUIR:  ");
-                indice = Convert.ToInt32(Console.ReadLine());
+                do
+                {
+                    Console.Write("Digite o indice do item q deseja EXCLUIR:  ");
+                    indice = Convert.ToInt32(Console.ReadLine());
+                } while (indice < 0);
+               
 
 
 
@@ -387,7 +391,7 @@ namespace GestãoDeEquipamentos
         {
             do
             {
-                Console.Write("Digite o indice do item q deseja alterar:  ");
+                Console.Write("Digite o indice do chamado que deseja excluir:  ");
                 indice = Convert.ToInt32(Console.ReadLine());
 
                 NomeDaChamada[posicao1] = null;
@@ -397,7 +401,7 @@ namespace GestãoDeEquipamentos
 
                 do
                 {
-                    Console.WriteLine("Deseja excluir mais algum item ?");
+                    Console.WriteLine("Deseja excluir mais algum chamado ?");
                     teste = Convert.ToChar(Console.ReadLine().ToUpper());
                     if (teste != 'S' && teste != 'N')
                     {
