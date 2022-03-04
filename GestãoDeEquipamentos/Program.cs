@@ -8,7 +8,7 @@ namespace GestãoDeEquipamentos
         //      --------------------| Equipametos |------------------------------
 
         static char teste, opcao;
-        static int QuantidadeDeProdutos = 0, indice, posicao1 = 0;
+        static int QuantidadeDeProdutos = 0, indice, posicao1 = 0, tamanho;
 
         static string[] NomeDoProduto = new string[1000];
         static double[] PrecoDoProduto = new double[1000];
@@ -22,7 +22,8 @@ namespace GestãoDeEquipamentos
 
         static string[] NomeDaChamada = new string[1000];
         static string[] DescricaoDaChamada = new string[1000];
-        static int[] NomeDoEquipamento = new int[1000];
+        static int[] IndiceDoEquipamento = new int[1000];
+        static int[] EquipamentosNoChamado = new int[1000];
         static string[] DataDeAberturaDoChamado = new string[1000];
 
         static void Main(string[] args)
@@ -74,7 +75,7 @@ namespace GestãoDeEquipamentos
                 switch (opcao)
                 {
                     case '1':
-                        InsetirChamado();
+                        InserirChamado();
                         break;
                     case '2':
                         VisualizarChamados();
@@ -131,13 +132,13 @@ namespace GestãoDeEquipamentos
 
             do
             {
-                int tamanho;
                 do
                 {
                     Console.Write("Digite o nome do produto:");
                     NomeDoProduto[posicao1] = Console.ReadLine();
-                    tamanho = NomeDoProduto.Length;
-                } while (tamanho < 6);
+                    tamanho = NomeDoProduto[posicao1].Length;
+                } while (tamanho <= 6);
+
                 do
                 {
                     Console.Write("Digite o preço do produto:");
@@ -220,11 +221,21 @@ namespace GestãoDeEquipamentos
                 Console.Write("Digite o indice do item q deseja alterar:  ");
                 indice = Convert.ToInt32(Console.ReadLine());
 
-                NomeDoProduto[indice] = null;
-                PrecoDoProduto[indice] = 0;
-                NumeroDeSerieDoProduto[indice] = null;
-                DatadeFabricacaoDoProduto[indice] = null;
-                FabricanteDoProduto[indice] = null;
+                for(int i = 0; i < QuantidadeDeChamadas; i++)
+                {
+                    if(indice == EquipamentosNoChamado[i])
+                    {
+                        Console.WriteLine("Esse item não pode ser excluido poís ele possui um chamado em aberto !!!");
+                    }
+                    else
+                    {
+                        NomeDoProduto[indice] = null;
+                        PrecoDoProduto[indice] = 0;
+                        NumeroDeSerieDoProduto[indice] = null;
+                        DatadeFabricacaoDoProduto[indice] = null;
+                        FabricanteDoProduto[indice] = null;
+                    }
+                }
 
                 do
                 {
@@ -261,35 +272,44 @@ namespace GestãoDeEquipamentos
                 double dias = diferenca.TotalDays;
 
                 if (NomeDaChamada[j] != null)
-                {
+                { 
                     Console.WriteLine("Indice: " + j + " | Título: " + NomeDaChamada[j] + " | Descrição: " + DescricaoDaChamada[j] + " | Data de abertura: " + DataDeAberturaDoChamado[j] + "| Dias em aberto: " + dias + " |");
                     Console.ReadLine();
+                    EquipamentosNoChamado[j] = IndiceDoEquipamento[j];
+                }
+                else
+                {
+                    EquipamentosNoChamado[j] = -1;
                 }
             }
         }
 
-        private static void InsetirChamado()
+        private static void InserirChamado()
         {
             do
             {
                 do
                 {
                     Console.Write("Digite o nome da chamada:");
-                    NomeDaChamada[posicao1] = Console.ReadLine();
-                } while (NomeDaChamada[posicao1] != null);
+                    NomeDaChamada[posicao2] = Console.ReadLine();
+                } while (NomeDaChamada[posicao2] != null);
 
                 Console.Write("Digite a descrição da chamada:");
-                DescricaoDaChamada[posicao1] = Console.ReadLine();
+                DescricaoDaChamada[posicao2] = Console.ReadLine();
 
                 do
                 {
                     Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
-                    NomeDoEquipamento[posicao1] = Convert.ToInt32(Console.ReadLine());
+                    IndiceDoEquipamento[posicao2] = Convert.ToInt32(Console.ReadLine());
+                } while (indice < QuantidadeDeProdutos);
+                EquipamentosNoChamado[posicao2] = IndiceDoEquipamento[posicao2];
+
+                do
+                {
+                    Console.Write("Digite a data de abertura da chamada:");
+                    DataDeAberturaDoChamado[posicao2] = Console.ReadLine();
                 } while (true);
-                Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
-                NomeDoEquipamento[posicao1] = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Digite a data de abertura da chamada:");
-                DataDeAberturaDoChamado[posicao1] = Console.ReadLine();
+
                 QuantidadeDeChamadas = QuantidadeDeChamadas + 1;
 
                 do
@@ -317,7 +337,7 @@ namespace GestãoDeEquipamentos
                 Console.Write("Digite a descrição da chamada:");
                 DescricaoDaChamada[indice] = Console.ReadLine();
                 Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
-                NomeDoEquipamento[indice] = Convert.ToInt32(Console.ReadLine());
+                IndiceDoEquipamento[indice] = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Digite a data de abertura da chamada:");
                 DataDeAberturaDoChamado[indice] = Console.ReadLine();
 
@@ -342,7 +362,7 @@ namespace GestãoDeEquipamentos
 
                 NomeDaChamada[posicao1] = null;
                 DescricaoDaChamada[posicao1] = null;
-                NomeDoEquipamento[posicao1] = 0;
+                IndiceDoEquipamento[posicao1] = 0;
                 DataDeAberturaDoChamado[posicao1] = null;
 
                 do
