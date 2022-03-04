@@ -234,8 +234,23 @@ namespace GestãoDeEquipamentos
         {
             do
             {
+                for (int j = 0; j < QuantidadeDeChamadas; j++)
+                {
+
+                    if (NomeDaChamada[j] != null)
+                    {
+                        EquipamentosNoChamado[j] = IndiceDoEquipamento[j];
+                    }
+                    else
+                    {
+                        EquipamentosNoChamado[j] = -1;
+                    }
+                }
+
                 Console.Write("Digite o indice do item q deseja EXCLUIR:  ");
                 indice = Convert.ToInt32(Console.ReadLine());
+
+
 
                 for(int i = 0; i < QuantidadeDeChamadas; i++)
                 {
