@@ -137,7 +137,7 @@ namespace GestãoDeEquipamentos
                     Console.Write("Digite o nome do produto:");
                     NomeDoProduto[posicao1] = Console.ReadLine();
                     tamanho = NomeDoProduto[posicao1].Length;
-                } while (tamanho <= 6);
+                } while (tamanho < 6);
 
                 do
                 {
@@ -150,18 +150,18 @@ namespace GestãoDeEquipamentos
                     Console.Write("Digite o número de série do produto:");
                     NumeroDeSerieDoProduto[posicao1] = Console.ReadLine();
 
-                } while (NumeroDeSerieDoProduto[posicao1] != null);
+                } while (NumeroDeSerieDoProduto[posicao1] == null);
 
                 do
                 {
                     Console.Write("Digite a data de fabricação do produto:");
                     DatadeFabricacaoDoProduto[posicao1] = Console.ReadLine();
-                }while(DatadeFabricacaoDoProduto != null);
+                }while(DatadeFabricacaoDoProduto == null);
                 do
                 {
                     Console.Write("Digite o fabricante do produto:");
                     FabricanteDoProduto[posicao1] = Console.ReadLine();
-                } while (FabricanteDoProduto[posicao1] != null);
+                } while (FabricanteDoProduto[posicao1] == null);
                 
                 posicao1 = posicao1 + 1;
 
@@ -184,23 +184,39 @@ namespace GestãoDeEquipamentos
         {
             do
             {
-                Console.Write("Digite o indice do chamado que deseja editar:");
+                Console.Write("Digite o indice do  que deseja editar:");
                 indice = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Digite o nome do produto:");
-                NomeDoProduto[indice] = Console.ReadLine();
+                do
+                {
+                    Console.Write("Digite o nome do produto:");
+                    NomeDoProduto[indice] = Console.ReadLine();
+                    tamanho = NomeDoProduto[indice].Length;
+                } while (tamanho < 6);
 
-                Console.Write("Digite o preço do produto:");
-                PrecoDoProduto[indice] = Convert.ToDouble(Console.ReadLine());
+                do
+                {
+                    Console.Write("Digite o preço do produto:");
+                    PrecoDoProduto[indice] = Convert.ToDouble(Console.ReadLine());
+                } while (PrecoDoProduto[indice] < 0);
 
-                Console.Write("Digite o número de série do produto:");
-                NumeroDeSerieDoProduto[indice] = Console.ReadLine();
+                do
+                {
+                    Console.Write("Digite o número de série do produto:");
+                    NumeroDeSerieDoProduto[indice] = Console.ReadLine();
 
-                Console.Write("Digite a data de fabricação do produto:");
-                DatadeFabricacaoDoProduto[indice] = Console.ReadLine();
+                } while (NumeroDeSerieDoProduto[indice] == null);
 
-                Console.Write("Digite o fabricante do produto:");
-                FabricanteDoProduto[indice] = Console.ReadLine();
+                do
+                {
+                    Console.Write("Digite a data de fabricação do produto:");
+                    DatadeFabricacaoDoProduto[indice] = Console.ReadLine();
+                } while (DatadeFabricacaoDoProduto[indice] == null);
+                do
+                {
+                    Console.Write("Digite o fabricante do produto:");
+                    FabricanteDoProduto[indice] = Console.ReadLine();
+                } while (FabricanteDoProduto[indice] == null);
 
                 do
                 {
@@ -218,7 +234,7 @@ namespace GestãoDeEquipamentos
         {
             do
             {
-                Console.Write("Digite o indice do item q deseja alterar:  ");
+                Console.Write("Digite o indice do item q deseja EXCLUIR:  ");
                 indice = Convert.ToInt32(Console.ReadLine());
 
                 for(int i = 0; i < QuantidadeDeChamadas; i++)
@@ -257,9 +273,9 @@ namespace GestãoDeEquipamentos
                 if (NomeDaChamada != null)
                 {
                     Console.WriteLine("Indice: " + j + " | Nome: " + NomeDoProduto[j] + " | Número de Série:" + NumeroDeSerieDoProduto[j] + " | Fabricante: " + FabricanteDoProduto[j] + "|");
-                    Console.ReadLine();
                 }
             }
+            Console.ReadLine();
         }
 
         private static void VisualizarChamados()
@@ -292,7 +308,7 @@ namespace GestãoDeEquipamentos
                 {
                     Console.Write("Digite o nome da chamada:");
                     NomeDaChamada[posicao2] = Console.ReadLine();
-                } while (NomeDaChamada[posicao2] != null);
+                } while (NomeDaChamada[posicao2] == null);
 
                 Console.Write("Digite a descrição da chamada:");
                 DescricaoDaChamada[posicao2] = Console.ReadLine();
@@ -301,14 +317,13 @@ namespace GestãoDeEquipamentos
                 {
                     Console.Write("Digite o indice do equipamento ao qual a chamada se refere:");
                     IndiceDoEquipamento[posicao2] = Convert.ToInt32(Console.ReadLine());
-                } while (indice < QuantidadeDeProdutos);
-                EquipamentosNoChamado[posicao2] = IndiceDoEquipamento[posicao2];
+                } while (IndiceDoEquipamento[posicao2] > QuantidadeDeProdutos);
 
                 do
                 {
                     Console.Write("Digite a data de abertura da chamada:");
                     DataDeAberturaDoChamado[posicao2] = Console.ReadLine();
-                } while (true);
+                } while (DataDeAberturaDoChamado[posicao2] == null);
 
                 QuantidadeDeChamadas = QuantidadeDeChamadas + 1;
 
